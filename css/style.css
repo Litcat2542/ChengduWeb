@@ -59,7 +59,7 @@ img { display: block; max-width: 100%; }
   padding: 0 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start; /* 右侧元素通过 margin-left:auto 自动贴右 */
 }
 
 /* —— 页头左侧：Logo 与站名 —— */
@@ -99,7 +99,7 @@ img { display: block; max-width: 100%; }
 }
 
 /* —— 页头右侧：导航栏 —— */
-.nav { display: flex; gap: 6px; }
+.nav { display: flex; gap: 6px; margin-left: auto; /* 自动贴向页头右侧 */ }
 
 .nav a {
   display: block;
@@ -571,4 +571,61 @@ img { display: block; max-width: 100%; }
   .section-title { font-size: 27px; letter-spacing: 3px; }
   .page-hero h1 { font-size: 34px; letter-spacing: 6px; }
   .tip-item { flex-direction: column; gap: 10px; }
+}
+
+/* ---------- 十三、导航栏背景音乐控件 ---------- */
+/* 页头右侧操作区：音乐按钮与汉堡按钮横向排布 */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 28px;
+}
+
+/* 隐藏的全局背景音乐音频标签 */
+.bg-music { display: none; }
+
+/* 背景音乐播放/暂停按钮：金色胶囊样式 */
+.music-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border: 1px solid rgba(200, 162, 74, 0.6);
+  border-radius: 999px;
+  background: var(--gold-bg);
+  color: var(--gold-deep);
+  font-size: 13px;
+  letter-spacing: 1px;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+.music-btn:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(200, 162, 74, 0.15);
+}
+
+/* 音符图标 */
+.music-icon { font-family: var(--serif); font-size: 16px; }
+
+/* 播放中的状态：金色实底 + 音符上下跳动动画 */
+.music-btn.playing { background: var(--gold); color: #fff; }
+.music-btn.playing .music-icon { animation: musicJump 0.8s ease-in-out infinite; }
+@keyframes musicJump {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+
+/* 移动端：音乐按钮收缩为圆形图标，隐藏文字 */
+@media (max-width: 640px) {
+  .music-text { display: none; }
+  .music-btn {
+    width: 38px; height: 38px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  .header-actions { gap: 8px; margin-left: 16px; }
 }

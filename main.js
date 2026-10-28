@@ -11,6 +11,7 @@ window.addEventListener("DOMContentLoaded", function () {
   initBanner();      // 初始化轮播图
   initHeader();      // 初始化页头效果
   initNavToggle();   // 初始化移动端导航
+  initMusic();       // 初始化背景音乐控制
 });
 
 /* ---------- 1. Banner 轮播图 ---------- */
@@ -81,5 +82,29 @@ function initNavToggle() {
   // 点击汉堡按钮：展开 / 收起导航抽屉
   btn.addEventListener("click", function () {
     nav.classList.toggle("open");
+  });
+}
+
+/* ---------- 4. 全局背景音乐控制 ---------- */
+function initMusic() {
+  // 获取控制按钮与背景音乐音频元素
+  const btn   = document.getElementById("musicBtn");
+  const audio = document.getElementById("bgMusic");
+  // 页面中不存在音乐控件时直接跳过（保持兼容）
+  if (!btn || !audio) return;
+
+  // 点击按钮：切换播放 / 暂停状态
+  btn.addEventListener("click", function () {
+    if (audio.paused) {
+      // 当前为暂停 → 开始循环播放背景音乐
+      audio.play();
+      btn.classList.add("playing"); // 切换为“播放中”金色样式
+      btn.title = "暂停背景音乐";
+    } else {
+      // 当前为播放 → 暂停背景音乐
+      audio.pause();
+      btn.classList.remove("playing");
+      btn.title = "播放背景音乐";
+    }
   });
 }

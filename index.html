@@ -23,9 +23,6 @@
         </span>
       </a>
 
-      <!-- 移动端汉堡菜单按钮 -->
-      <button class="nav-toggle" id="navToggle" aria-label="打开导航">&#9776;</button>
-
       <!-- 页头右侧：导航栏（首页高亮） -->
       <nav class="nav" id="nav">
         <a href="index.html" class="active">首页</a>
@@ -34,8 +31,22 @@
         <a href="culture.html">文化</a>
         <a href="travel.html">攻略</a>
       </nav>
+
+      <!-- 页头右侧操作区：背景音乐按钮 + 移动端汉堡按钮 -->
+      <div class="header-actions">
+        <!-- 背景音乐播放/暂停按钮 -->
+        <button class="music-btn" id="musicBtn" type="button" title="播放背景音乐">
+          <span class="music-icon">♪</span>
+          <span class="music-text">背景音乐</span>
+        </button>
+        <!-- 移动端汉堡菜单按钮 -->
+        <button class="nav-toggle" id="navToggle" aria-label="打开导航">&#9776;</button>
+      </div>
     </div>
   </header>
+
+  <!-- 全局背景音乐（循环播放，由导航栏中的按钮控制播放/暂停） -->
+  <audio id="bgMusic" class="bg-music" src="蔡琴明月几时有.mp3" loop preload="auto"></audio>
 
   <!-- ==================== Banner 全屏轮播区（三张轮播图） ==================== -->
   <section class="banner" id="banner">
