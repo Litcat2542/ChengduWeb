@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>蜀韵·成都 - 景点</title>
+  <!-- 引入外部样式表：结构与样式分离 -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ==================== 页头（与首页完全相同，导航“景点”高亮） ==================== -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <!-- 页头左侧：Logo + 站名 -->
+      <a class="brand" href="index.html">
+        <span class="brand-logo">蜀</span>
+        <span class="brand-text">
+          <span class="brand-name">蜀韵·成都</span>
+          <span class="brand-sub">SHUYUN · CHENGDU</span>
+        </span>
+      </a>
+      <!-- 移动端汉堡菜单按钮 -->
+      <button class="nav-toggle" id="navToggle" aria-label="打开导航">&#9776;</button>
+      <!-- 页头右侧：导航栏 -->
+      <nav class="nav" id="nav">
+        <a href="index.html">首页</a>
+        <a href="food.html">美食</a>
+        <a href="sights.html" class="active">景点</a>
+        <a href="culture.html">文化</a>
+        <a href="travel.html">攻略</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== 页面顶部横幅 ==================== -->
+  <section class="page-hero">
+    <h1>成都景致</h1>
+    <p>逛不完的景 · 读不完的城 · 一步一诗篇</p>
+  </section>
+
+  <!-- ==================== 热门景点卡片区 ==================== -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-kicker">MUST SEE</span>
+        <h2 class="section-title">必游之地</h2>
+        <p class="section-sub">人文古迹与自然山水，共同构成成都的万千气象</p>
+      </div>
+      <div class="card-grid">
+        <!-- 景点卡片 1：宽窄巷子 -->
+        <article class="card">
+          <div class="card-icon">🏮</div>
+          <h3>宽窄巷子</h3>
+          <p>清代川西民居建筑群，宽巷、窄巷、井巷三条古街，茶馆与院落里藏着最地道的成都慢生活。</p>
+        </article>
+        <!-- 景点卡片 2：武侯祠 -->
+        <article class="card">
+          <div class="card-icon">🏯</div>
+          <h3>武侯祠</h3>
+          <p>全国唯一的君臣合祀祠庙，红墙竹影间，三国风云与忠义精神绵延千年。</p>
+        </article>
+        <!-- 景点卡片 3：杜甫草堂 -->
+        <article class="card">
+          <div class="card-icon">📜</div>
+          <h3>杜甫草堂</h3>
+          <p>诗圣杜甫流寓成都的故居，茅屋、竹径与诗碑，见证着中国古典诗歌的高光时刻。</p>
+        </article>
+        <!-- 景点卡片 4：锦里古街 -->
+        <article class="card">
+          <div class="card-icon">🎑</div>
+          <h3>锦里古街</h3>
+          <p>西蜀历史上最古老的街道之一，夜色灯火与川味小吃交织，重现千年锦官城的繁华。</p>
+        </article>
+        <!-- 景点卡片 5：都江堰 -->
+        <article class="card">
+          <div class="card-icon">🌊</div>
+          <h3>都江堰</h3>
+          <p>世界文化遗产，两千余年仍在发挥作用的无坝引水工程，人类治水智慧的伟大丰碑。</p>
+        </article>
+        <!-- 景点卡片 6：青城山 -->
+        <article class="card">
+          <div class="card-icon">⛰</div>
+          <h3>青城山</h3>
+          <p>“青城天下幽”，道教发源地之一，层峦叠翠、宫观隐现，是修身养性的绝佳去处。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 页尾（与首页完全相同） ==================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <!-- 页尾左侧：品牌信息 -->
+      <div class="footer-brand">
+        <p class="footer-name">蜀韵·成都</p>
+        <p class="footer-slogan">天府之都，锦绣蓉城。以文化为媒，传递雪山下的公园城市、烟火里的幸福成都。</p>
+      </div>
+      <!-- 页尾中间：快捷导航 -->
+      <div class="footer-col">
+        <h4>快捷导航</h4>
+        <a href="index.html">首页</a>
+        <a href="food.html">美食</a>
+        <a href="sights.html">景点</a>
+        <a href="culture.html">文化</a>
+        <a href="travel.html">攻略</a>
+      </div>
+      <!-- 页尾右侧：联系方式 -->
+      <div class="footer-col">
+        <h4>联系我们</h4>
+        <a href="mailto:hello@shuyun-cd.com">hello@shuyun-cd.com</a>
+        <a href="tel:028-88888888">028-8888 8888</a>
+        <a>中国·成都·锦江区</a>
+      </div>
+    </div>
+    <!-- 版权信息 -->
+    <div class="footer-copy">© 2026 蜀韵·成都 文化旅游宣传平台 | 本网站仅用于学习交流展示</div>
+  </footer>
+
+  <!-- 引入外部脚本 -->
+  <script src="main.js"></script>
+</body>
+</html>

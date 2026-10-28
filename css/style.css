@@ -1,0 +1,574 @@
+/* ==========================================================
+   蜀韵·成都 —— 全局样式表
+   设计风格：现代简约 · 金色文化主题
+   说明：全站五个页面共用本样式表，实现【结构(HTML)与样式(CSS)分离】
+   ========================================================== */
+
+/* ---------- 一、全局变量与基础重置 ---------- */
+:root {
+  --gold: #c8a24a;          /* 主金色：品牌主题色 */
+  --gold-deep: #a07c2e;     /* 深金色：标题与强调 */
+  --gold-light: #ead9ad;    /* 浅金色：辅助装饰 */
+  --gold-bg: #faf6ec;       /* 淡金色底：区块背景 */
+  --ink: #2b2b2b;           /* 主文字颜色 */
+  --gray: #6b675e;          /* 次级文字颜色 */
+  --line: #e8e2d4;          /* 浅色分割线 */
+  --shadow: 0 4px 20px rgba(20, 16, 4, 0.08); /* 通用阴影 */
+  --serif: "STZhongsong", "Songti SC", "SimSun", serif; /* 标题衬线字体 */
+}
+
+/* 重置浏览器默认内外边距与盒模型 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* 页面平滑滚动 */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: #ffffff;
+}
+
+a { text-decoration: none; color: inherit; }
+ul, ol { list-style: none; }
+img { display: block; max-width: 100%; }
+
+/* ---------- 二、页头 Header（全站五页共用，结构一致） ---------- */
+/* 页头固定悬浮在视口顶部，具有半透明毛玻璃质感 */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: 72px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);           /* 毛玻璃效果 */
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  transition: box-shadow 0.3s ease;
+}
+
+/* 页面滚动后为页头加深阴影（由 main.js 控制添加） */
+.header.scrolled { box-shadow: 0 4px 16px rgba(30, 20, 0, 0.12); }
+
+.header-inner {
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* —— 页头左侧：Logo 与站名 —— */
+.brand { display: flex; align-items: center; gap: 12px; }
+
+/* Logo：金色渐变圆底 + 篆体“蜀”字 */
+.brand-logo {
+  width: 44px; height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+  color: #fff;
+  border-radius: 50%;
+  font-family: var(--serif);
+  font-size: 23px;
+  font-weight: 700;
+  box-shadow: 0 3px 10px rgba(200, 162, 74, 0.4);
+}
+
+/* 站名主标题：蜀韵·成都 */
+.brand-name {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--gold-deep);
+  letter-spacing: 4px;
+}
+
+/* 站名拼音副标 */
+.brand-sub {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: #a79e8c;
+  margin-top: 2px;
+}
+
+/* —— 页头右侧：导航栏 —— */
+.nav { display: flex; gap: 6px; }
+
+.nav a {
+  display: block;
+  padding: 8px 18px;
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: var(--ink);
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* 导航悬停/选中时的金色下划线装饰 */
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: 2px;
+  width: 0; height: 2px;
+  background: var(--gold);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+.nav a:hover { color: var(--gold-deep); }
+.nav a:hover::after,
+.nav a.active::after { width: 70%; }
+
+/* 当前页高亮样式（金色加粗 + 下划线） */
+.nav a.active { color: var(--gold-deep); font-weight: 600; }
+
+/* 移动端汉堡菜单按钮：桌面端隐藏 */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 26px;
+  color: var(--gold-deep);
+  cursor: pointer;
+  line-height: 1;
+}/* ---------- 三、首页 Banner 全屏轮播 ---------- */
+.banner {
+  position: relative;
+  width: 100%;
+  height: 100vh;             /* 轮播区域占满整个视口高度 */
+  min-height: 620px;
+  overflow: hidden;
+}
+
+/* 单张幻灯片：绝对定位叠放，通过透明度实现淡入淡出切换 */
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.slide.active { opacity: 1; }
+
+/* 轮播背景图：按比例裁切铺满 */
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 半透明遮罩层：保证前景文字清晰可读 */
+.slide-mask {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(18,14,4,.35) 0%, rgba(18,14,4,.10) 40%, rgba(18,14,4,.55) 100%);
+}
+
+/* 幻灯片中央文案 */
+.slide-content {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 90%;
+  text-align: center;
+  color: #fff;
+  opacity: 0;
+  transform: translate(-50%, -44%);
+  transition: opacity 0.9s ease 0.35s, transform 0.9s ease 0.35s;
+}
+.slide.active .slide-content { opacity: 1; transform: translate(-50%, -50%); }
+
+/* 文案：顶部小标签 */
+.slide-kicker {
+  display: inline-block;
+  font-size: 13px;
+  letter-spacing: 6px;
+  padding: 6px 22px;
+  margin-bottom: 22px;
+  color: var(--gold-light);
+  border: 1px solid rgba(234, 217, 173, 0.6);
+}
+
+/* 文案：主标题 */
+.slide-title {
+  font-family: var(--serif);
+  font-size: 62px;
+  font-weight: 700;
+  letter-spacing: 10px;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* 文案：金色装饰分线 */
+.slide-divider {
+  width: 64px; height: 2px;
+  background: var(--gold);
+  margin: 0 auto 18px;
+}
+
+/* 文案：副标题 */
+.slide-desc {
+  font-size: 17px;
+  letter-spacing: 3px;
+  color: #f3efdd;
+}
+
+/* 左右切换按钮 */
+.banner-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.55);
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.banner-btn:hover { background: var(--gold); border-color: var(--gold); }
+.banner-btn.prev { left: 28px; }
+.banner-btn.next { right: 28px; }
+
+/* 底部指示圆点容器 */
+.banner-dots {
+  position: absolute;
+  left: 50%; bottom: 36px;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  gap: 12px;
+}
+
+/* 指示点：默认小圆点，当前为金色长条 */
+.banner-dot {
+  width: 10px; height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+.banner-dot.active {
+  width: 30px;
+  border-radius: 6px;
+  background: var(--gold);
+}
+
+/* 向下滚动的提示文字（轻微上下浮动动画） */
+.banner-hint {
+  position: absolute;
+  left: 50%; bottom: 108px;
+  transform: translateX(-50%);
+  z-index: 5;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,.8);
+  animation: hintMove 1.6s ease-in-out infinite;
+}
+@keyframes hintMove {
+  0%, 100% { transform: translate(-50%, 0); opacity: .6; }
+  50%      { transform: translate(-50%, 8px); opacity: 1; }
+}/* ---------- 四、通用区块与标题 ---------- */
+.section { padding: 96px 0; }
+/* 淡金色交替背景区块 */
+.section-alt { background: var(--gold-bg); }
+
+/* 居中限宽容器 */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* 区块标题（居中 + 金色装饰线） */
+.section-head { text-align: center; margin-bottom: 56px; }
+.section-kicker {
+  display: inline-block;
+  font-size: 13px;
+  letter-spacing: 8px;
+  color: var(--gold-deep);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: var(--ink);
+}
+/* 标题下方的金色装饰短线 */
+.section-title::after {
+  content: "";
+  display: block;
+  width: 56px; height: 2px;
+  background: var(--gold);
+  margin: 18px auto 0;
+}
+.section-sub {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--gray);
+  letter-spacing: 2px;
+}
+
+/* ---------- 五、首页视频展示区 ---------- */
+.video-box {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 44px rgba(20, 16, 4, 0.16);
+}
+.video-box video {
+  display: block;
+  width: 100%;
+  max-height: 76vh;
+  object-fit: contain;
+  background: #000;
+}
+
+/* ---------- 六、首页成都介绍文字 ---------- */
+.intro-section { background: #fffdf8; }
+.intro-copy {
+  max-width: 860px;
+  margin: 0 auto;
+  font-size: 16.5px;
+  line-height: 2.05;
+  letter-spacing: 0.5px;
+  color: #4c4a43;
+  text-align: justify;      /* 两端对齐，符合中文排版习惯 */
+}
+/* 首字下沉：放大的金色首字装饰 */
+.intro-copy::first-letter {
+  font-family: var(--serif);
+  font-size: 46px;
+  color: var(--gold-deep);
+  float: left;
+  line-height: 1;
+  padding: 8px 10px 0 0;
+}
+/* 落款 */
+.intro-sign {
+  max-width: 860px;
+  margin: 40px auto 0;
+  text-align: right;
+  font-family: var(--serif);
+  font-size: 16px;
+  letter-spacing: 6px;
+  color: var(--gold-deep);
+}
+
+/* ---------- 七、页尾 Footer（全站五页共用，结构一致） ---------- */
+.footer { background: #211f1a; color: #b7b1a2; }
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 24px 36px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+.footer-name {
+  font-family: var(--serif);
+  font-size: 28px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.footer-slogan {
+  max-width: 320px;
+  font-size: 14px;
+  line-height: 1.9;
+  color: #8f8979;
+}
+.footer-col h4 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--gold-light);
+  margin-bottom: 18px;
+}
+.footer-col a {
+  display: block;
+  font-size: 14px;
+  color: #9c9686;
+  padding: 6px 0;
+  transition: color 0.3s ease;
+}
+.footer-col a:hover { color: var(--gold-light); }
+.footer-copy {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  text-align: center;
+  padding: 20px 16px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: #7d7768;
+}/* ---------- 八、子页面顶部横幅（美食/景点/文化/攻略页用） ---------- */
+.page-hero {
+  padding: 168px 24px 92px;   /* 顶部预留固定页头的高度 */
+  text-align: center;
+  background:
+    linear-gradient(rgba(20, 16, 4, 0.55), rgba(20, 16, 4, 0.55)),
+    url("../banner1.jpg") center / cover no-repeat;
+}
+.page-hero h1 {
+  font-family: var(--serif);
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: 12px;
+  color: #fff;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+.page-hero p {
+  margin-top: 16px;
+  font-size: 15px;
+  letter-spacing: 5px;
+  color: var(--gold-light);
+}
+
+/* ---------- 九、卡片布局（子页面通用） ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 34px 28px;
+  text-align: center;
+  transition: all 0.35s ease;
+}
+/* 悬停上浮 + 金色描边高亮 */
+.card:hover {
+  transform: translateY(-8px);
+  border-color: var(--gold);
+  box-shadow: 0 16px 36px rgba(200, 162, 74, 0.16);
+}
+.card-icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  border-radius: 50%;
+  background: var(--gold-bg);
+  border: 1px solid rgba(200, 162, 74, 0.35);
+}
+.card h3 {
+  font-family: var(--serif);
+  font-size: 20px;
+  letter-spacing: 3px;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.card p {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--gray);
+}
+
+/* ---------- 十、攻略页：条目列表 ---------- */
+.tip-list { max-width: 880px; margin: 0 auto; }
+.tip-item {
+  display: flex;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.tip-item:last-child { border-bottom: none; }
+.tip-tag {
+  flex: none;
+  width: 72px; height: 36px;
+  line-height: 36px;
+  text-align: center;
+  background: var(--gold-bg);
+  border: 1px solid rgba(200, 162, 74, 0.4);
+  color: var(--gold-deep);
+  font-size: 13px;
+  letter-spacing: 2px;
+  border-radius: 4px;
+}
+.tip-item h3 {
+  font-size: 17px;
+  letter-spacing: 1px;
+  color: var(--gold-deep);
+  margin-bottom: 6px;
+}
+.tip-item p {
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: var(--gray);
+}
+
+/* ---------- 十一、诗句引用块（文化页用） ---------- */
+.quote {
+  max-width: 880px;
+  margin: 60px auto 0;
+  padding: 20px 30px;
+  background: var(--gold-bg);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  font-family: var(--serif);
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: var(--gold-deep);
+  text-align: center;
+}
+.quote small {
+  display: block;
+  margin-top: 10px;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: var(--gray);
+}
+
+/* ---------- 十二、响应式适配 ---------- */
+@media (max-width: 900px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+  .slide-title { font-size: 44px; letter-spacing: 6px; }
+  .brand-name { font-size: 22px; letter-spacing: 3px; }
+}
+
+@media (max-width: 640px) {
+  /* 移动端：导航折叠为右侧抽屉，由汉堡按钮控制展开 */
+  .nav {
+    position: fixed;
+    top: 72px; right: 0;
+    width: 220px;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: var(--shadow);
+    border-radius: 0 0 0 12px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+  .nav.open { transform: translateX(0); }
+  .nav a { padding: 12px 10px; }
+  .nav-toggle { display: block; }
+
+  .card-grid { grid-template-columns: 1fr; }
+  .slide-title { font-size: 34px; letter-spacing: 4px; }
+  .slide-desc { font-size: 14px; letter-spacing: 2px; }
+  .banner-btn { width: 38px; height: 38px; font-size: 20px; }
+  .banner-btn.prev { left: 12px; }
+  .banner-btn.next { right: 12px; }
+  .section-title { font-size: 27px; letter-spacing: 3px; }
+  .page-hero h1 { font-size: 34px; letter-spacing: 6px; }
+  .tip-item { flex-direction: column; gap: 10px; }
+}

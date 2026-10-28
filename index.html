@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <!-- 视口设置：适配移动端设备 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>蜀韵·成都 - 首页 | 成都文化旅游宣传</title>
+  <meta name="description" content="蜀韵·成都——成都文化旅游宣传网站，带你领略天府之都的千年风雅与烟火人间。" />
+  <!-- 引入外部样式表：结构与样式分离 -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ==================== 页头（全站五页共用框架） ==================== -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <!-- 页头左侧：Logo + 站名 -->
+      <a class="brand" href="index.html">
+        <span class="brand-logo">蜀</span>
+        <span class="brand-text">
+          <span class="brand-name">蜀韵·成都</span>
+          <span class="brand-sub">SHUYUN · CHENGDU</span>
+        </span>
+      </a>
+
+      <!-- 移动端汉堡菜单按钮 -->
+      <button class="nav-toggle" id="navToggle" aria-label="打开导航">&#9776;</button>
+
+      <!-- 页头右侧：导航栏（首页高亮） -->
+      <nav class="nav" id="nav">
+        <a href="index.html" class="active">首页</a>
+        <a href="food.html">美食</a>
+        <a href="sights.html">景点</a>
+        <a href="culture.html">文化</a>
+        <a href="travel.html">攻略</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== Banner 全屏轮播区（三张轮播图） ==================== -->
+  <section class="banner" id="banner">
+
+    <!-- 第一张轮播图：成都古街风貌 -->
+    <article class="slide active">
+      <img src="banner1.jpg" alt="成都古街风貌" />
+      <div class="slide-mask"></div>
+      <div class="slide-content">
+        <span class="slide-kicker">天府之都</span>
+        <h1 class="slide-title">九天开出一成都</h1>
+        <div class="slide-divider"></div>
+        <p class="slide-desc">千年文脉 · 锦绣蓉城 · 蜀韵流光</p>
+      </div>
+    </article>
+
+    <!-- 第二张轮播图：成都自然山水 -->
+    <article class="slide">
+      <img src="banner2.jpg" alt="成都自然山水" />
+      <div class="slide-mask"></div>
+      <div class="slide-content">
+        <span class="slide-kicker">锦绣蓉城</span>
+        <h1 class="slide-title">花重锦官城</h1>
+        <div class="slide-divider"></div>
+        <p class="slide-desc">晓看红湿处 · 烟火人间 · 诗意栖居</p>
+      </div>
+    </article>
+
+    <!-- 第三张轮播图：成都夜色与市井烟火 -->
+    <article class="slide">
+      <img src="banner3.jpg" alt="成都夜色与市井烟火" />
+      <div class="slide-mask"></div>
+      <div class="slide-content">
+        <span class="slide-kicker">巴适成都</span>
+        <h1 class="slide-title">一座来了就不想离开的城市</h1>
+        <div class="slide-divider"></div>
+        <p class="slide-desc">盖碗茶香 · 川味麻辣 · 安逸自在</p>
+      </div>
+    </article>
+
+    <!-- 轮播左右切换按钮 -->
+    <button class="banner-btn prev" id="prevBtn" aria-label="上一张">&#8249;</button>
+    <button class="banner-btn next" id="nextBtn" aria-label="下一张">&#8250;</button>
+
+    <!-- 底部指示圆点：由 main.js 动态生成 -->
+    <div class="banner-dots" id="bannerDots"></div>
+
+    <!-- 向下滚动提示 -->
+    <div class="banner-hint">下滑探索</div>
+  </section>
+
+  <!-- ==================== 成都宣传视频区 ==================== -->
+  <section class="section" id="video">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-kicker">E P I S O D E</span>
+        <h2 class="section-title">印象成都</h2>
+        <p class="section-sub">一帧光影，读懂一座城的古韵今风</p>
+      </div>
+      <div class="video-box">
+        <!-- 宣传视频：cd1.mp4，poster 加载首张轮播图为封面 -->
+        <video controls preload="metadata" poster="banner1.jpg">
+          <source src="cd1.mp4" type="video/mp4" />
+          您的浏览器不支持 HTML5 视频播放，请更换浏览器后观看。
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 成都介绍文字（约300字） ==================== -->
+  <section class="section intro-section" id="intro">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-kicker">ABOUT CHENGDU</span>
+        <h2 class="section-title">锦城慢语</h2>
+        <p class="section-sub">三千年城名未改、城址未移，成都正以最从容的姿态与世界相遇</p>
+      </div>
+      <p class="intro-copy">
+        成都，简称"蓉"，别称"锦官城"，坐落于四川盆地西部、成都平原腹地，自古享有"天府之国"的美誉。
+        作为古蜀文明的重要发祥地，成都三千余年建城史从未中断，城名不改、城址不迁，是中国首批国家历史文化名城。
+        金沙遗址的太阳神鸟翱翔千年，武侯祠的松柏诉说着三国风云，杜甫草堂曾庇护诗圣的诗心，
+        宽窄巷子与锦里古街则将市井烟火铺陈得酣畅淋漓。麻辣鲜香的火锅与川菜是这座城市最热烈的心跳，
+        一碗盖碗茶、一段川剧变脸，便是最地道的"成都慢生活"。憨态可掬的大熊猫与世界文化遗产都江堰、青城山，
+        更让这里成为自然与人文交织的旅行胜地。今天的成都，融古老文脉与摩登时尚于一体，
+        正以开放包容的姿态迎接八方来客。锦水汤汤，蜀韵悠悠，我们在成都，恭候与您相遇。
+      </p>
+      <p class="intro-sign">—— 蜀韵·成都 敬上</p>
+    </div>
+  </section>
+
+  <!-- ==================== 页尾（全站五页共用框架） ==================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <!-- 页尾左侧：品牌信息 -->
+      <div class="footer-brand">
+        <p class="footer-name">蜀韵·成都</p>
+        <p class="footer-slogan">天府之都，锦绣蓉城。以文化为媒，传递雪山下的公园城市、烟火里的幸福成都。</p>
+      </div>
+      <!-- 页尾中间：快捷导航 -->
+      <div class="footer-col">
+        <h4>快捷导航</h4>
+        <a href="index.html">首页</a>
+        <a href="food.html">美食</a>
+        <a href="sights.html">景点</a>
+        <a href="culture.html">文化</a>
+        <a href="travel.html">攻略</a>
+      </div>
+      <!-- 页尾右侧：联系方式 -->
+      <div class="footer-col">
+        <h4>联系我们</h4>
+        <a href="mailto:hello@shuyun-cd.com">hello@shuyun-cd.com</a>
+        <a href="tel:028-88888888">028-8888 8888</a>
+        <a>中国·成都·锦江区</a>
+      </div>
+    </div>
+    <!-- 版权信息 -->
+    <div class="footer-copy">© 2026 蜀韵·成都 文化旅游宣传平台 | 本网站仅用于学习交流展示</div>
+  </footer>
+
+  <!-- 引入外部脚本：轮播图等交互逻辑 -->
+  <script src="main.js"></script>
+</body>
+</html>
